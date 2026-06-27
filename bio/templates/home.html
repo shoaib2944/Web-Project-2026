@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Group Portfolio</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        .container { text-align: center; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; }
+        p { color: #7f8c8d; font-size: 18px; }
+        .btn-container { margin-top: 30px; }
+        .btn { display: inline-block; text-decoration: none; background-color: #3498db; color: white; padding: 12px 25px; margin: 10px; border-radius: 5px; font-weight: bold; transition: background 0.3s; }
+        .btn:hover { background-color: #2980b9; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Welcome to Our Group Portfolio</h1>
+    <p>Select a group member to view their database profile.</p>
+    <div class="btn-container">
+        {% for member in members %}
+            <a href="{% url 'profile_detail' member.slug %}" class="btn">{{ member.name }}</a>
+        {% empty %}
+            <p>No profiles found. Go to /admin to add members!</p>
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ member.name }} - Portfolio</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 20px; background-color: #fafafa; color: #333; }
+        .portfolio-container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .header { text-align: center; border-bottom: 2px solid #3498db; padding-bottom: 20px; }
+        h1 { margin: 0; color: #2c3e50; }
+        .subtitle { font-style: italic; color: #7f8c8d; font-weight: bold; }
+        .section { margin-top: 30px; }
+        h2 { color: #3498db; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
+        ul { padding-left: 20px; }
+        .project { margin-bottom: 15px; }
+        .project-title { font-weight: bold; color: #2c3e50; }
+        .back-btn { display: inline-block; margin-top: 20px; text-decoration: none; color: #3498db; font-weight: bold; }
+    </style>
+</head>
+<body>
+<div class="portfolio-container">
+    <div class="header">
+        <h1>{{ member.name }}</h1>
+        <p class="subtitle">{{ member.job_title }}</p>
+        <p>{{ member.professional_description }}</p>
+    </div>
+
+    <div class="section">
+        <h2>Education</h2>
+        {% for edu in member.education_history.all %}
+            <p><strong>{{ edu.degree_title }}</strong><br>{{ edu.institute }} | {{ edu.duration_or_grad_year }}</p>
+        {% empty %}
+            <p>No education recorded.</p>
+        {% endfor %}
+    </div>
+
+    <div class="section">
+        <h2>Skills</h2>
+        <ul>
+            {% for skill in member.skills.all %}
+                <li><strong>{{ skill.category }}:</strong> {{ skill.skills_list }}</li>
+            {% empty %}
+                <li>No skills recorded.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Experience & Projects</h2>
+        {% for project in member.projects.all %}
+            <div class="project">
+                <div class="project-title">{{ project.title }}</div>
+                <p>{{ project.description }}</p>
+            </div>
+        {% empty %}
+            <p>No projects recorded.</p>
+        {% endfor %}
+    </div>
+
+    <a href="{% url 'home' %}" class="back-btn">← Back to Group Home</a>
+</div>
+</body>
+</html>
